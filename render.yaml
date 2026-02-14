@@ -1,0 +1,20 @@
+services:
+  - type: worker
+    name: jarvis-gateway
+    runtime: node
+    plan: starter
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: ANTHROPIC_API_KEY
+        sync: false
+      - key: GOG_KEYRING_PASSWORD
+        sync: false
+      - key: GOG_ACCOUNT
+        sync: false
+      - key: NODE_ENV
+        value: production
+    disk:
+      name: openclaw-data
+      mountPath: /var/data/openclaw
+      sizeGB: 1

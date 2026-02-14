@@ -1,0 +1,13 @@
+{
+  "name": "jarvis-openclaw",
+  "private": true,
+  "engines": {
+    "node": ">=22"
+  },
+  "dependencies": {
+    "openclaw": "latest"
+  },
+  "scripts": {
+    "start": "bash scripts/start.sh"
+  }
+}

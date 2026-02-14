@@ -1,0 +1,10 @@
+node_modules/
+*.log
+.env
+.claude/
+
+# Don't commit secrets — they go in Render env vars
+credentials/
+
+# OpenClaw local state (sessions, memory, keyring)
+.openclaw/
