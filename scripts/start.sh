@@ -15,7 +15,8 @@ echo "==> OPENCLAW_HOME=$OPENCLAW_HOME"
 echo "==> Repo dir: $REPO_DIR"
 
 # Ensure persistent directory structure exists
-mkdir -p "$OPENCLAW_HOME"
+# OpenClaw expects a .openclaw dir inside OPENCLAW_HOME for state
+mkdir -p "$OPENCLAW_HOME/.openclaw"
 
 # Sync openclaw.json from repo to persistent disk (deploy overwrites)
 if [ -f "$REPO_DIR/openclaw.json" ]; then
@@ -34,8 +35,9 @@ if [ -d "$REPO_DIR/workspace" ]; then
   echo "==> Synced workspace files"
 fi
 
-echo "==> Running doctor --fix..."
-npx openclaw doctor --fix
+# Set gateway mode (stored in internal config, not openclaw.json)
+echo "==> Setting gateway.mode=local..."
+npx openclaw config set gateway.mode local
 
 echo "==> Starting OpenClaw gateway..."
 exec npx openclaw gateway --verbose
