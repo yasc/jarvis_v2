@@ -1,0 +1,53 @@
+{
+  "agent": {
+    "model": {
+      "primary": "anthropic/claude-sonnet-4-5",
+      "fallbacks": ["anthropic/claude-opus-4-6"]
+    }
+  },
+  "identity": {
+    "name": "Jarvis",
+    "theme": "warm, practical household AI assistant",
+    "emoji": "🏠"
+  },
+  "channels": {
+    "telegram": {
+      "enabled": true,
+      "dmPolicy": "pairing",
+      "allowFrom": []
+    }
+  },
+  "heartbeat": {
+    "every": "2h",
+    "target": "last",
+    "activeHours": {
+      "start": "07:00",
+      "end": "22:00",
+      "timezone": "Europe/London"
+    }
+  },
+  "tools": {
+    "allow": ["read", "write", "exec", "web_search", "web_fetch"]
+  },
+  "skills": {
+    "entries": {
+      "gog": {
+        "enabled": true,
+        "env": {
+          "GOG_KEYRING_PASSWORD": "$GOG_KEYRING_PASSWORD",
+          "GOG_ACCOUNT": "$GOG_ACCOUNT"
+        }
+      }
+    }
+  },
+  "sessions": {
+    "context": {
+      "softThresholdTokens": 40000,
+      "flushToMemory": true
+    },
+    "ttl": {
+      "idle": "4h",
+      "max": "24h"
+    }
+  }
+}
