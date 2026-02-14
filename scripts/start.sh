@@ -39,5 +39,13 @@ fi
 echo "==> Setting gateway.mode=local..."
 npx openclaw config set gateway.mode local
 
+# Generate a gateway auth token if not already persisted
+TOKEN_FILE="$OPENCLAW_HOME/.openclaw/gateway-token"
+if [ ! -f "$TOKEN_FILE" ]; then
+  openssl rand -hex 32 > "$TOKEN_FILE"
+  echo "==> Generated new gateway token"
+fi
+export OPENCLAW_GATEWAY_TOKEN="$(cat "$TOKEN_FILE")"
+
 echo "==> Starting OpenClaw gateway..."
 exec npx openclaw gateway --verbose
