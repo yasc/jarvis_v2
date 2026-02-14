@@ -10,7 +10,7 @@ REPO_DIR="$(cd "$(dirname "$0")/.." && pwd)"
 # Use OPENCLAW_HOME to point OpenClaw at the persistent disk.
 # This is cleaner than symlinking ~/.openclaw.
 export OPENCLAW_HOME="$PERSISTENT_DIR"
-export NODE_OPTIONS="--max-old-space-size=384"
+export NODE_OPTIONS="--max-old-space-size=1536"
 
 echo "==> OPENCLAW_HOME=$OPENCLAW_HOME"
 echo "==> Repo dir: $REPO_DIR"
