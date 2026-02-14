@@ -1,4 +1,7 @@
 {
+  "gateway": {
+    "mode": "local"
+  },
   "agent": {
     "model": {
       "primary": "anthropic/claude-sonnet-4-5",

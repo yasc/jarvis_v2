@@ -34,5 +34,8 @@ if [ -d "$REPO_DIR/workspace" ]; then
   echo "==> Synced workspace files"
 fi
 
+echo "==> Running doctor --fix..."
+npx openclaw doctor --fix
+
 echo "==> Starting OpenClaw gateway..."
 exec npx openclaw gateway --verbose
