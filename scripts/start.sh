@@ -16,9 +16,9 @@ echo "==> Repo dir: $REPO_DIR"
 # Ensure persistent directory structure exists
 mkdir -p "$OPENCLAW_HOME/.openclaw"
 
-# Sync openclaw.json from repo to persistent disk (deploy overwrites)
+# Sync openclaw.json from repo to where OpenClaw actually reads it
 if [ -f "$REPO_DIR/openclaw.json" ]; then
-  cp "$REPO_DIR/openclaw.json" "$OPENCLAW_HOME/openclaw.json"
+  cp "$REPO_DIR/openclaw.json" "$OPENCLAW_HOME/.openclaw/openclaw.json"
   echo "==> Synced openclaw.json"
 fi
 
