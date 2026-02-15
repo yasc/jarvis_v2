@@ -5,13 +5,28 @@
         "primary": "anthropic/claude-sonnet-4-5",
         "fallbacks": ["anthropic/claude-opus-4-6"]
       },
-      "thinkingDefault": "low"
-    }
-  },
-  "identity": {
-    "name": "Jarvis",
-    "theme": "warm, practical household AI assistant",
-    "emoji": "🏠"
+      "thinkingDefault": "low",
+      "heartbeat": {
+        "every": "2h",
+        "target": "last",
+        "activeHours": {
+          "start": "07:00",
+          "end": "22:00",
+          "timezone": "Europe/London"
+        }
+      }
+    },
+    "list": [
+      {
+        "id": "main",
+        "default": true,
+        "identity": {
+          "name": "Jarvis",
+          "theme": "warm, practical household AI assistant",
+          "emoji": "🏠"
+        }
+      }
+    ]
   },
   "channels": {
     "telegram": {
@@ -21,14 +36,8 @@
       "allowFrom": []
     }
   },
-  "heartbeat": {
-    "every": "2h",
-    "target": "last",
-    "activeHours": {
-      "start": "07:00",
-      "end": "22:00",
-      "timezone": "Europe/London"
-    }
+  "session": {
+    "dmScope": "per-channel-peer"
   },
   "tools": {
     "allow": ["read", "write", "exec", "web_search", "web_fetch"]
@@ -49,15 +58,5 @@
     "token": "${OPENCLAW_GATEWAY_TOKEN}",
     "allowRequestSessionKey": true,
     "allowedSessionKeyPrefixes": ["hook:"]
-  },
-  "sessions": {
-    "context": {
-      "softThresholdTokens": 40000,
-      "flushToMemory": true
-    },
-    "ttl": {
-      "idle": "4h",
-      "max": "24h"
-    }
   }
 }
