@@ -33,8 +33,22 @@ if [ -d "$REPO_DIR/workspace" ]; then
   # Overwrite committed workspace files (SOUL.md, AGENTS.md, etc.)
   rsync -av "$REPO_DIR/workspace/" "$OPENCLAW_HOME/workspace/" \
     --include='*.md' --include='*/' --exclude='*'
-  echo "==> Synced workspace files"
+  echo "==> Synced workspace to $OPENCLAW_HOME/workspace/"
+
+  # Also sync to default workspace location (~/.openclaw/workspace/)
+  # in case OpenClaw ignores agent.workspace config
+  mkdir -p "$HOME/.openclaw/workspace"
+  rsync -av "$REPO_DIR/workspace/" "$HOME/.openclaw/workspace/" \
+    --include='*.md' --include='*/' --exclude='*'
+  echo "==> Synced workspace to $HOME/.openclaw/workspace/"
 fi
+
+# Debug: show where workspace files ended up
+echo "==> Workspace files at $OPENCLAW_HOME/workspace/:"
+ls -la "$OPENCLAW_HOME/workspace/"/*.md 2>/dev/null || echo "  (none)"
+echo "==> Workspace files at $HOME/.openclaw/workspace/:"
+ls -la "$HOME/.openclaw/workspace/"/*.md 2>/dev/null || echo "  (none)"
+echo "==> SOUL.md first line: $(head -2 "$HOME/.openclaw/workspace/SOUL.md" 2>/dev/null || echo 'NOT FOUND')"
 
 # Set gateway mode (stored in internal config, not openclaw.json)
 echo "==> Setting gateway.mode=local..."
