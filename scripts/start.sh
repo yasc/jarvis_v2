@@ -44,20 +44,20 @@ if [ -d "$PERSISTENT_DIR/gogcli/bin" ]; then
   echo "==> gog binary on PATH"
 fi
 
-# Set gateway mode and model config via CLI to ensure they persist
-echo "==> Setting gateway.mode=local..."
-npx openclaw config set gateway.mode local
-echo "==> Setting model config..."
-npx openclaw config set agents.defaults.model.primary "anthropic/claude-sonnet-4-5"
-npx openclaw config set agents.defaults.thinkingDefault "low"
-
-# Generate a gateway auth token if not already persisted
+# Generate a gateway auth token if not already persisted (must happen before config set)
 TOKEN_FILE="$OPENCLAW_HOME/.openclaw/gateway-token"
 if [ ! -f "$TOKEN_FILE" ]; then
   openssl rand -hex 32 > "$TOKEN_FILE"
   echo "==> Generated new gateway token"
 fi
 export OPENCLAW_GATEWAY_TOKEN="$(cat "$TOKEN_FILE")"
+
+# Set gateway mode and model config via CLI to ensure they persist
+echo "==> Setting gateway.mode=local..."
+npx openclaw config set gateway.mode local
+echo "==> Setting model config..."
+npx openclaw config set agents.defaults.model.primary "anthropic/claude-sonnet-4-5"
+npx openclaw config set agents.defaults.thinkingDefault "low"
 
 # Ensure reminders data file exists
 DATA_DIR="$OPENCLAW_HOME/.openclaw/workspace/data"
