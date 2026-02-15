@@ -8,3 +8,4 @@ credentials/
 
 # OpenClaw local state (sessions, memory, keyring)
 .openclaw/
+.DS_Store

@@ -44,9 +44,12 @@ if [ -d "$PERSISTENT_DIR/gogcli/bin" ]; then
   echo "==> gog binary on PATH"
 fi
 
-# Set gateway mode (stored in internal config, not openclaw.json)
+# Set gateway mode and model config via CLI to ensure they persist
 echo "==> Setting gateway.mode=local..."
 npx openclaw config set gateway.mode local
+echo "==> Setting model config..."
+npx openclaw config set agents.defaults.model.primary "anthropic/claude-sonnet-4-5"
+npx openclaw config set agents.defaults.thinkingDefault "low"
 
 # Generate a gateway auth token if not already persisted
 TOKEN_FILE="$OPENCLAW_HOME/.openclaw/gateway-token"
@@ -56,5 +59,26 @@ if [ ! -f "$TOKEN_FILE" ]; then
 fi
 export OPENCLAW_GATEWAY_TOKEN="$(cat "$TOKEN_FILE")"
 
+# Ensure reminders data file exists
+DATA_DIR="$OPENCLAW_HOME/.openclaw/workspace/data"
+mkdir -p "$DATA_DIR"
+if [ ! -f "$DATA_DIR/reminders.json" ]; then
+  echo '{"reminders":[]}' > "$DATA_DIR/reminders.json"
+  echo "==> Created empty reminders.json"
+fi
+
+# Start reminder checker in background
+echo "==> Starting reminder checker..."
+node "$REPO_DIR/scripts/check-reminders.mjs" &
+CHECKER_PID=$!
+
+# Cleanup on exit
+cleanup() {
+  echo "==> Stopping reminder checker (PID $CHECKER_PID)..."
+  kill "$CHECKER_PID" 2>/dev/null || true
+  wait "$CHECKER_PID" 2>/dev/null || true
+}
+trap cleanup EXIT INT TERM
+
 echo "==> Starting OpenClaw gateway..."
-exec npx openclaw gateway --verbose
+npx openclaw gateway --verbose
