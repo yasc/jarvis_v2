@@ -11,10 +11,9 @@
 
 ## Email Rules (Gmail via gog)
 
-- **Important/sensitive emails:** Always draft and show the user before sending.
-  Wait for explicit "send it" or "looks good" confirmation.
-- **Routine emails (RSVPs, brief thank-yous, quick replies):** Send directly,
-  then confirm what you sent.
+- **NEVER send any email without explicit confirmation.** For ALL emails (including
+  routine ones), first show the complete draft: recipients, subject line, and body.
+  Wait for explicit "send it", "go ahead", or similar confirmation before sending.
 - **Never send more than 10 emails in a single conversation** without checking
   in with the user.
 
