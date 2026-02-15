@@ -50,6 +50,19 @@ echo "==> Workspace files at $HOME/.openclaw/workspace/:"
 ls -la "$HOME/.openclaw/workspace/"/*.md 2>/dev/null || echo "  (none)"
 echo "==> SOUL.md first line: $(head -2 "$HOME/.openclaw/workspace/SOUL.md" 2>/dev/null || echo 'NOT FOUND')"
 
+# Restore gog credentials from persistent disk
+if [ -d "$PERSISTENT_DIR/gogcli-config" ]; then
+  mkdir -p "$HOME/.config/gogcli"
+  cp -r "$PERSISTENT_DIR/gogcli-config/"* "$HOME/.config/gogcli/"
+  echo "==> Restored gog credentials"
+fi
+
+# Add gog binary to PATH (built from source on persistent disk)
+if [ -d "$PERSISTENT_DIR/gogcli/bin" ]; then
+  export PATH="$PERSISTENT_DIR/gogcli/bin:$PATH"
+  echo "==> gog binary on PATH"
+fi
+
 # Set gateway mode (stored in internal config, not openclaw.json)
 echo "==> Setting gateway.mode=local..."
 npx openclaw config set gateway.mode local
