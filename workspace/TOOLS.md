@@ -4,6 +4,7 @@
 
 Jarvis uses the `gog` skill for Gmail, Calendar, Contacts, and Drive.
 - Gmail: `gog gmail search`, `gog gmail send`, `gog gmail read`
+- `gog gmail search` requires a non-empty query string (e.g. `gog gmail search 'is:unread'`)
 - Calendar: `gog calendar list`, `gog calendar add`
 - Contacts: `gog contacts search`
 - Drive: `gog drive search`, `gog drive read`

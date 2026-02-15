@@ -24,6 +24,9 @@
           "name": "Jarvis",
           "theme": "warm, practical household AI assistant",
           "emoji": "🏠"
+        },
+        "groupChat": {
+          "mentionPatterns": ["jarvis", "Jarvis", "@jarvis", "hey jarvis", "yo jarvis", "J"]
         }
       }
     ]
@@ -32,8 +35,13 @@
     "telegram": {
       "enabled": true,
       "dmPolicy": "pairing",
-      "groupPolicy": "open",
-      "allowFrom": []
+      "allowFrom": ["68093606", "64004206"],
+      "groups": {
+        "-5259961230": {
+          "enabled": true,
+          "requireMention": false
+        }
+      }
     }
   },
   "session": {
