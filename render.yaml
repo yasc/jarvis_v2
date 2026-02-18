@@ -2,7 +2,7 @@ services:
   - type: worker
     name: jarvis-gateway
     runtime: node
-    plan: starter
+    plan: standard
     buildCommand: npm install
     startCommand: npm start
     envVars:
