@@ -6,9 +6,8 @@ set -euo pipefail
 
 PERSISTENT_DIR="/var/data/openclaw"
 REPO_DIR="$(cd "$(dirname "$0")/.." && pwd)"
-export SCRIPTS_DIR="$REPO_DIR/scripts"
-
 export OPENCLAW_HOME="$PERSISTENT_DIR"
+export NODE_PATH="$REPO_DIR/node_modules"
 export NODE_OPTIONS="--max-old-space-size=1536"
 
 echo "==> OPENCLAW_HOME=$OPENCLAW_HOME"
@@ -31,6 +30,10 @@ if [ -d "$REPO_DIR/workspace" ]; then
   rsync -av "$REPO_DIR/workspace/" "$OPENCLAW_HOME/.openclaw/workspace/"
   echo "==> Synced workspace to $OPENCLAW_HOME/.openclaw/workspace/"
 fi
+
+# Copy icloud-calendar script into its skill directory so {baseDir} resolves
+cp "$REPO_DIR/scripts/icloud-calendar.mjs" "$OPENCLAW_HOME/.openclaw/workspace/skills/icloud-calendar/"
+echo "==> Copied icloud-calendar.mjs to skill dir"
 
 # Restore gog credentials from persistent disk
 if [ -d "$PERSISTENT_DIR/gogcli-config" ]; then
@@ -68,16 +71,22 @@ if [ ! -f "$DATA_DIR/reminders.json" ]; then
   echo "==> Created empty reminders.json"
 fi
 
-# Start reminder checker in background
+# Start background services
 echo "==> Starting reminder checker..."
 node "$REPO_DIR/scripts/check-reminders.mjs" &
 CHECKER_PID=$!
 
+echo "==> Starting morning briefing scheduler..."
+node "$REPO_DIR/scripts/morning-briefing.mjs" &
+BRIEFING_PID=$!
+
 # Cleanup on exit
 cleanup() {
-  echo "==> Stopping reminder checker (PID $CHECKER_PID)..."
+  echo "==> Stopping background services..."
   kill "$CHECKER_PID" 2>/dev/null || true
+  kill "$BRIEFING_PID" 2>/dev/null || true
   wait "$CHECKER_PID" 2>/dev/null || true
+  wait "$BRIEFING_PID" 2>/dev/null || true
 }
 trap cleanup EXIT INT TERM
 

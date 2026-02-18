@@ -10,29 +10,29 @@ the entire family schedule across all calendar providers.
 
 ## List All Calendars
 
-`node $SCRIPTS_DIR/icloud-calendar.mjs list-calendars`
+`node {baseDir}/icloud-calendar.mjs list-calendars`
 
 ## Today's Events
 
-`node $SCRIPTS_DIR/icloud-calendar.mjs today`
+`node {baseDir}/icloud-calendar.mjs today`
 
 ## Tomorrow's Events
 
-`node $SCRIPTS_DIR/icloud-calendar.mjs tomorrow`
+`node {baseDir}/icloud-calendar.mjs tomorrow`
 
 ## This Week's Events
 
-`node $SCRIPTS_DIR/icloud-calendar.mjs week`
+`node {baseDir}/icloud-calendar.mjs week`
 
 ## Events in a Date Range
 
-`node $SCRIPTS_DIR/icloud-calendar.mjs range <startDate> <endDate>`
+`node {baseDir}/icloud-calendar.mjs range <startDate> <endDate>`
 
 Dates in YYYY-MM-DD format.
 
 ## Add an Event
 
-`node $SCRIPTS_DIR/icloud-calendar.mjs add '<calendarName>' '<summary>' '<startISO>' '<endISO>' '<location>' '<description>'`
+`node {baseDir}/icloud-calendar.mjs add '<calendarName>' '<summary>' '<startISO>' '<endISO>' '<location>' '<description>'`
 
 Start and end as ISO 8601 datetime strings (e.g. `2026-02-19T15:00:00Z`).
 

@@ -4,13 +4,8 @@
 
 Jarvis uses the `icloud-calendar` skill for all calendar queries. This gives a
 unified view of ALL family calendars (Google, Outlook, etc.) via iCloud.
-
-- List calendars: `node $SCRIPTS_DIR/icloud-calendar.mjs list-calendars`
-- Today's events: `node $SCRIPTS_DIR/icloud-calendar.mjs today`
-- Tomorrow: `node $SCRIPTS_DIR/icloud-calendar.mjs tomorrow`
-- This week: `node $SCRIPTS_DIR/icloud-calendar.mjs week`
-- Date range: `node $SCRIPTS_DIR/icloud-calendar.mjs range YYYY-MM-DD YYYY-MM-DD`
-- Add event: `node $SCRIPTS_DIR/icloud-calendar.mjs add '<calendar>' '<title>' '<start>' '<end>' '[location]' '[description]'`
+Use the commands defined in the icloud-calendar skill (list-calendars, today,
+tomorrow, week, range, add).
 
 For calendar queries, **always use icloud-calendar** instead of `gog calendar`.
 
