@@ -58,6 +58,13 @@
           "GOG_KEYRING_PASSWORD": "$GOG_KEYRING_PASSWORD",
           "GOG_ACCOUNT": "$GOG_ACCOUNT"
         }
+      },
+      "icloud-calendar": {
+        "enabled": true,
+        "env": {
+          "ICLOUD_EMAIL": "$ICLOUD_EMAIL",
+          "ICLOUD_APP_PASSWORD": "$ICLOUD_APP_PASSWORD"
+        }
       }
     }
   },

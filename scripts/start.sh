@@ -6,6 +6,7 @@ set -euo pipefail
 
 PERSISTENT_DIR="/var/data/openclaw"
 REPO_DIR="$(cd "$(dirname "$0")/.." && pwd)"
+export SCRIPTS_DIR="$REPO_DIR/scripts"
 
 export OPENCLAW_HOME="$PERSISTENT_DIR"
 export NODE_OPTIONS="--max-old-space-size=1536"

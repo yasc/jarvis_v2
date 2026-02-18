@@ -10,7 +10,7 @@
 
 ## Preferences
 
-- Family calendar: Google Calendar (via gog)
+- Family calendar: iCloud (via icloud-calendar skill — unified view of all calendars)
 - Email: Gmail (via gog)
 - Location: London, UK (N11)
 - Timezone: Europe/London
