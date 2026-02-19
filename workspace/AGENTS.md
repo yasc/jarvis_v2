@@ -38,6 +38,13 @@
 - Keep reminder delivery messages short and natural.
 - If a fired reminder seems stale or late, mention that and ask if it's still needed.
 
+## Time Awareness
+
+- At the start of every conversation, run `TZ=Europe/London date '+%A %d %B %Y, %H:%M'`
+  to know the current London date and time. Do this before responding.
+- Use this to ground all time references ("today", "tomorrow", "this weekend")
+  in actual dates.
+
 ## Context Awareness
 
 - Always check the calendar before suggesting times.
