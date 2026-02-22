@@ -7,7 +7,7 @@
   "scripts": {
     "build": "tsc && cd container/agent-runner && npm run build",
     "postinstall": "cd container/agent-runner && npm install",
-    "start": "node dist/index.js",
+    "start": "npm run build && node dist/index.js",
     "dev": "tsx src/index.ts",
     "auth": "tsx src/whatsapp-auth.ts",
     "typecheck": "tsc --noEmit",
