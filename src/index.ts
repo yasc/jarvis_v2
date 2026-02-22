@@ -432,8 +432,12 @@ async function main(): Promise<void> {
   // Create and connect channels
   if (!TELEGRAM_ONLY) {
     whatsapp = new WhatsAppChannel(channelOpts);
-    channels.push(whatsapp);
-    await whatsapp.connect();
+    try {
+      await whatsapp.connect();
+      channels.push(whatsapp);
+    } catch (err) {
+      logger.warn({ err }, 'WhatsApp unavailable, continuing without it');
+    }
   }
 
   if (TELEGRAM_BOT_TOKEN) {
