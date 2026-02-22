@@ -410,6 +410,20 @@ async function runQuery(
     }
   }
 
+  // Build dynamic date/time header for the system prompt
+  const now = new Date();
+  const dateTimeStr = now.toLocaleString('en-GB', {
+    timeZone: 'Europe/London',
+    weekday: 'long',
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric',
+    hour: 'numeric',
+    minute: '2-digit',
+    hour12: true,
+  });
+  const dateTimeHeader = `## Current Date and Time\nIt is currently ${dateTimeStr} (London time).\n\n`;
+
   // Additional directories passed via paths.extra
   const extraDirs: string[] = (paths.extra || []).filter(d => fs.existsSync(d));
   if (extraDirs.length > 0) {
@@ -423,9 +437,11 @@ async function runQuery(
       additionalDirectories: extraDirs.length > 0 ? extraDirs : undefined,
       resume: sessionId,
       resumeSessionAt: resumeAt,
-      systemPrompt: globalClaudeMd
-        ? { type: 'preset' as const, preset: 'claude_code' as const, append: globalClaudeMd }
-        : undefined,
+      systemPrompt: {
+        type: 'preset' as const,
+        preset: 'claude_code' as const,
+        append: dateTimeHeader + (globalClaudeMd || ''),
+      },
       allowedTools: [
         'Bash',
         'Read', 'Write', 'Edit', 'Glob', 'Grep',

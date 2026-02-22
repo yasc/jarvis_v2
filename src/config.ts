@@ -20,10 +20,13 @@ export const POLL_INTERVAL = 2000;
 export const SCHEDULER_POLL_INTERVAL = 60000;
 
 const PROJECT_ROOT = process.cwd();
+const PERSISTENT_ROOT = process.env.PERSISTENT_DIR
+  ? path.resolve(process.env.PERSISTENT_DIR)
+  : PROJECT_ROOT;
 
-export const STORE_DIR = path.resolve(PROJECT_ROOT, 'store');
-export const GROUPS_DIR = path.resolve(PROJECT_ROOT, 'groups');
-export const DATA_DIR = path.resolve(PROJECT_ROOT, 'data');
+export const STORE_DIR = path.resolve(PERSISTENT_ROOT, 'store');
+export const GROUPS_DIR = path.resolve(PERSISTENT_ROOT, 'groups');
+export const DATA_DIR = path.resolve(PERSISTENT_ROOT, 'data');
 export const MAIN_GROUP_FOLDER = 'main';
 
 export const CONTAINER_TIMEOUT = parseInt(

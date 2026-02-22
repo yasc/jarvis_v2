@@ -5,6 +5,12 @@ services:
     plan: standard
     buildCommand: npm install && npm run build
     startCommand: npm start
+    disk:
+      name: jarvis-data
+      mountPath: /var/data/jarvis
+      sizeGB: 1
     envVars:
       - key: NODE_ENV
         value: production
+      - key: PERSISTENT_DIR
+        value: /var/data/jarvis
